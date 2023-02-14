@@ -1,6 +1,8 @@
 package ch.cern.todo.service;
 
+import ch.cern.todo.model.Category;
 import ch.cern.todo.model.Task;
+import ch.cern.todo.repository.CategoryRepository;
 import ch.cern.todo.repository.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,9 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     public List<Task> findAll() {
         logger.info("> findAll");
 
@@ -28,9 +33,8 @@ public class TaskService {
         return tasks;
     }
 
-    public Optional<Task> findById(long taskId) {
+    public Optional<Task> findById(Long taskId) {
         logger.info("> findById {}", taskId);
-
 
         Optional<Task> task = taskRepository.findById(taskId);
 
@@ -40,8 +44,16 @@ public class TaskService {
     }
 
     @Transactional
-    public Task create(Task task) {
+    public Task create(Long categoryId, Task task) {
         logger.info("> save");
+
+        Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
+
+        if (categoryOptional.isEmpty()) {
+            return null;
+        }
+
+        task.setCategory(categoryOptional.get());
 
         Task newTask = taskRepository.save(task);
 
@@ -52,14 +64,25 @@ public class TaskService {
 
 
     @Transactional
-    public Task update(Task task) {
+    public Task update(Long taskId, Long categoryId, Task task) {
         logger.info("> update");
 
-        Task taskCategory = taskRepository.save(task);
+        Optional<Task> taskOptional = taskRepository.findById(taskId);
 
-        logger.info("< update");
+        if (taskOptional.isEmpty()) {
+            return null;
+        }
 
-        return taskCategory;
+        Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
+
+        if (categoryOptional.isEmpty()) {
+            return null;
+        }
+
+        task.setCategory(categoryOptional.get());
+        task.setTaskId(taskId);
+
+        return taskRepository.save(task);
     }
 
 

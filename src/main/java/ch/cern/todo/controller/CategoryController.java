@@ -24,21 +24,17 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable(value = "id") Long categoryId) {
+    public ResponseEntity<Category> findById(@PathVariable(value = "id") Long categoryId) {
 
         Optional<Category> category = categoryService.findById(categoryId);
 
-        if(category.isPresent()) {
-            return ResponseEntity.ok().body(category.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return category.isPresent() ? ResponseEntity.ok().body(category.get()) : ResponseEntity.notFound().build();
+
     }
 
     @PostMapping
     public ResponseEntity<Category> createCategory(@Validated @RequestBody Category category) {
-        Category newCategory =  categoryService.create(category);
-        return ResponseEntity.ok().body(newCategory);
+        return ResponseEntity.ok().body(categoryService.create(category));
     }
 
 
@@ -47,9 +43,8 @@ public class CategoryController {
 
         Category updatedCategory = categoryService.update(categoryId,category);
 
-        if (updatedCategory == null) return ResponseEntity.notFound().build();
+        return updatedCategory == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().build();
 
-        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

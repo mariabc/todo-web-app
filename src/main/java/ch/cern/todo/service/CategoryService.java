@@ -21,10 +21,10 @@ public class CategoryService {
     public List<Category> findAll() {
         logger.info("> findAll");
 
-        List<Category> category = (List<Category>) categoryRepository.findAll();
+        List<Category> categories = (List<Category>) categoryRepository.findAll();
 
         logger.info("< findAll");
-        return category;
+        return categories;
     }
 
     public Optional<Category> findById(Long categoryId) {

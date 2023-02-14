@@ -29,16 +29,24 @@ public class TaskController {
 
         Optional<Task> task = taskService.findById(taskId);
 
-        if(task.isPresent()) {
-            return ResponseEntity.ok().body(task.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return task.isPresent() ? ResponseEntity.ok().body(task.get()) : ResponseEntity.notFound().build();
+
     }
 
-    @PostMapping
-    public Task createTask(@Validated @RequestBody Task task) {
-        return taskService.create(task);
+    @PostMapping("/category/{categoryId}")
+    public ResponseEntity<Task> createTask(@PathVariable(value = "categoryId") Long categoryId, @Validated @RequestBody Task task) {
+        Task newTask = taskService.create(categoryId, task);
+
+        return newTask == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().body(newTask);
+    }
+
+    @PutMapping("/{id}/category/{categoryId}")
+    public ResponseEntity<Task> updateTask(@PathVariable(value = "id") Long taskId, @PathVariable(value = "categoryId") Long categoryId, @Validated @RequestBody Task task) {
+
+        Task updatedTask = taskService.update(taskId, categoryId, task);
+
+        return updatedTask == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().build();
+
     }
 
     @DeleteMapping("/{id}")

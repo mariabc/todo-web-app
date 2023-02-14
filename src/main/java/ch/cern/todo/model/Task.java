@@ -16,11 +16,11 @@ public class Task implements Serializable {
     @Column(name = "TASK_DESCRIPTION", length = 500)
     private String description;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DEADLINE", nullable = false)
     private Date deadline;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CATEGORY_ID", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
     protected Task() {

@@ -19,7 +19,7 @@ http://localhost:8080/api/task
 
 Create
 
-curl --location --request POST 'http://localhost:8080/api/task' --header 'Content-Type: application/json' --data-raw '{"name": "Flights", "description": "Buy London flights"}'
+curl --location --request POST 'http://localhost:8080/api/task' --header 'Content-Type: application/json' --data-raw '{"name": "Flights", "description": "Buy PARIS flights", "deadline":"2023-03-16'T'13:00"}'
 
 curl --location --request POST 'http://localhost:8080/api/category' --header 'Content-Type: application/json' --data-raw '{"name": "Urgent", "description": "Task is urgent" }'
 
