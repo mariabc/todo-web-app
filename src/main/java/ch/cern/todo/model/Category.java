@@ -8,14 +8,14 @@ import java.io.Serializable;
 public class Category implements Serializable {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CATEGORY_ID")
     private long categoryId;
 
-    @Column (name = "CATEGORY_NAME", unique = true, nullable = false, length = 100)
+    @Column(name = "CATEGORY_NAME", unique = true, nullable = false, length = 100)
     private String name;
 
-    @Column (name = "CATEGORY_DESCRIPTION",  length = 500)
+    @Column(name = "CATEGORY_DESCRIPTION", length = 500)
     private String description;
 
     protected Category() {
@@ -49,5 +49,14 @@ public class Category implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

@@ -8,7 +8,7 @@ import java.util.Date;
 @Table(name = "TASKS")
 public class Task implements Serializable {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TASK_ID")
     private long taskId;
     @Column(name = "TASK_NAME", nullable = false, length = 100)
@@ -34,12 +34,12 @@ public class Task implements Serializable {
         this.category = category;
     }
 
-    public void setTaskId(long taskId) {
-        this.taskId = taskId;
-    }
-
     public long getTaskId() {
         return taskId;
+    }
+
+    public void setTaskId(long taskId) {
+        this.taskId = taskId;
     }
 
     public String getName() {
@@ -72,5 +72,16 @@ public class Task implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskId=" + taskId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", deadline=" + deadline +
+                ", category=" + category +
+                '}';
     }
 }

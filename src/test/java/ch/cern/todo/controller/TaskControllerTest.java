@@ -61,7 +61,6 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.taskId").value(1))
                 .andExpect(jsonPath("$.name").value(H2Bootstrap.mockTask.get(0).getName()))
                 .andExpect(jsonPath("$.description").value(H2Bootstrap.mockTask.get(0).getDescription()))
-                //.andExpect(jsonPath("$.deadline").value(H2Bootstrap.mockTask.get(0).getDeadline().getDate()))
                 .andExpect(jsonPath("$.category.categoryId").value(H2Bootstrap.mockTask.get(0).getCategory().getCategoryId()));
     }
 
@@ -69,7 +68,7 @@ public class TaskControllerTest {
     public void newTask() throws Exception {
 
         Task mockTask = new Task(4, "Test4", "This is a test4", new Date(),
-                categoryService.findById(H2Bootstrap.mockTask.get(0).getCategory().getCategoryId()).get() );
+                categoryService.findById(H2Bootstrap.mockTask.get(0).getCategory().getCategoryId()).get());
 
         mvc.perform(post("/api/task/category/1")
                         .contentType("application/json")
@@ -77,7 +76,6 @@ public class TaskControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(mockTask.getName()))
                 .andExpect(jsonPath("$.description").value(mockTask.getDescription()))
-                //.andExpect(jsonPath("$.deadline").value(mockTask.getDeadline().toInstant()))
                 .andExpect(jsonPath("$.category.categoryId").value(H2Bootstrap.mockTask.get(0).getCategory().getCategoryId())
                 );
 
@@ -112,12 +110,10 @@ public class TaskControllerTest {
     public void removeTask() throws Exception {
 
         mvc.perform(delete("/api/task/3"))
-                .andExpect(status().isNoContent()
+                .andExpect(status().isOk()
                 );
 
         Optional<Task> task = taskService.findById(3L);
         assertThat(task.isPresent()).isFalse();
     }
-
-
 }

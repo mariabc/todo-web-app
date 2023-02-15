@@ -11,17 +11,17 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest
 class TodoApplicationTests {
 
-	@Autowired
-	private CategoryController categoryController;
+    @Autowired
+    private CategoryController categoryController;
 
-	@Autowired
-	private TaskController taskController;
+    @Autowired
+    private TaskController taskController;
 
-	@Test
-	void contextLoads() throws Exception {
-		assertThat(categoryController).isNotNull();
-		assertThat(taskController).isNotNull();
-	}
+    @Test
+    void contextLoads() throws Exception {
+        assertThat(categoryController).isNotNull();
+        assertThat(taskController).isNotNull();
+    }
 
 
 }

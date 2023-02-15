@@ -9,27 +9,10 @@ To complete the exercices please implement all missing classes and functonalites
 Once you are ready, please send it to me (ie link to your git repository) before  our interview.
 
 
-TESTS
+-------------------------------------------------
 
-Find
+SIDE NOTES
 
-http://localhost:8080/api/category
+In a real world scenario this API would follow several iterations and analysis together with the users and the team. 
 
-http://localhost:8080/api/task
-
-Create
-
-curl --location --request POST 'http://localhost:8080/api/task' --header 'Content-Type: application/json' --data-raw '{"name": "Flights", "description": "Buy PARIS flights", "deadline":"2023-03-16'T'13:00"}'
-
-curl --location --request POST 'http://localhost:8080/api/category' --header 'Content-Type: application/json' --data-raw '{"name": "Urgent", "description": "Task is urgent" }'
-
-Delete
-
-curl -X DELETE http://localhost:8080/api/task/1
-
-curl -X DELETE http://localhost:8080/api/category/1
-
-
-Update
-
-curl -X PUT http://localhost:8080/api/category/2 -H "Content-Type: application/json" -d '{"name":"Families"}' 
+It would also provide more functionality and tests.

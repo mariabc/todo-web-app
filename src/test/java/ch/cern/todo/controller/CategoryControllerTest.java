@@ -97,15 +97,26 @@ public class CategoryControllerTest {
     }
 
     @Test
+    public void updateCategory_notFound() throws Exception {
+
+        Category mockCategory = categoryService.findById(2L).get();
+        mockCategory.setName("Test7Updated");
+        mockCategory.setDescription("This is test7 updated");
+
+        mvc.perform(put("/api/category/7")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(mockCategory)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void removeCategory() throws Exception {
 
         mvc.perform(delete("/api/category/4"))
-                .andExpect(status().isNoContent()
+                .andExpect(status().isOk()
                 );
 
         Optional<Category> category = categoryService.findById(4L);
         assertThat(category.isPresent()).isFalse();
     }
-
-
 }
